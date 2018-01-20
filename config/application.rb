@@ -29,5 +29,14 @@ module ShopApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.middleware.use Rack::Cors do
+      allow do
+        origins 'localhost:8080'
+        resource '*',
+        :headers => :any, :methods => [:get, :post, :delete, :put, :options, :patch],
+        :expose => ["Links", "X-Total", "X-Api-Cache-Key" ]
+      end
+    end
   end
 end
