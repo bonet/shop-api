@@ -1,4 +1,14 @@
 Product.create([{name: "test1", category: "shirt", sold_out: false, under_sale: false,  price: 1000, sale_price: 1000},
                 {name: "test2", category: "shirt", sold_out: false, under_sale: false,  price: 1290, sale_price: 1000},
                 {name: "test3", category: "watch", sold_out: false, under_sale: true, price: 28000, sale_price: 25000},
-                {name: "test4", category: "book", sold_out: true, under_sale: false, price: 2300, sale_price: 1000}])
+                {name: "test4", category: "book", sold_out: true, under_sale: false, price: 2300, sale_price: 1000},
+                {name: "test5", category: "book", sold_out: true, under_sale: false, price: 2300, sale_price: 1000},
+                {name: "test6", category: "book", sold_out: true, under_sale: false, price: 2300, sale_price: 1000},
+                {name: "test7", category: "shirt", sold_out: true, under_sale: false, price: 2300, sale_price: 1000},
+                {name: "test8", category: "shirt", sold_out: true, under_sale: false, price: 2300, sale_price: 1000},
+                {name: "test9", category: "book", sold_out: true, under_sale: false, price: 2300, sale_price: 1000},
+                {name: "test10", category: "watch", sold_out: true, under_sale: false, price: 2300, sale_price: 1000},
+                {name: "test11", category: "book", sold_out: true, under_sale: false, price: 2300, sale_price: 1000},
+                {name: "test12", category: "book", sold_out: true, under_sale: false, price: 2300, sale_price: 1000},
+                {name: "test13", category: "book", sold_out: true, under_sale: false, price: 2300, sale_price: 1000},
+                {name: "test14", category: "shirt", sold_out: true, under_sale: false, price: 2300, sale_price: 1000}])
