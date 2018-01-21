@@ -24,12 +24,9 @@ private
   end
 
   def fetch_products
-    products = Product.order("#{sort_column} #{sort_direction}")
-    products = products.page(page).per_page(per_page)
-    if @params[:search].present?
-      products = products.where("name like :search or category like :search", search: "%#{@params[:search]}%")
-    end
-    products
+    get_products
+    filter_products
+    @products
   end
 
   def page
@@ -47,5 +44,24 @@ private
 
   def sort_direction
     @params[:sort_direction] == "desc" ? "desc" : "asc"
+  end
+
+  def get_products
+    @products = Product.order("#{sort_column} #{sort_direction}")
+    @products = products.page(page).per_page(per_page)
+  end
+
+  def filter_products
+    if @params[:search_category].present? && search_query.present?
+      @products = products.where(search_query, search_term: "%#{@params[:search_term]}%")
+    end
+  end
+
+  def search_query
+    if @params[:search_category] == "category"
+      "category like :search_term" 
+    elsif @params[:search_category] == "price"
+
+    end
   end
 end
