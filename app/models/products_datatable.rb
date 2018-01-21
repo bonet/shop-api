@@ -39,15 +39,21 @@ private
   end
 
   def sort_column
-    @params[:order_by].present? ? @params[:order_by] : "price"
+    @params[:order_by]
   end
 
   def sort_direction
-    @params[:sort_direction] == "desc" ? "desc" : "asc"
+    if sort_column.present?
+      @params[:sort_direction] == "desc" ? "desc" : "asc"
+    end
+  end
+
+  def order_by_text
+    "#{sort_column} #{sort_direction}"
   end
 
   def get_products
-    @products = Product.order("#{sort_column} #{sort_direction}")
+    @products = Product.order(order_by_text)
     @products = @products.page(page).per_page(per_page)
   end
 
