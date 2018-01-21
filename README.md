@@ -1,24 +1,7 @@
-# README
+# Shop API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This Rails project is using Rails 5.1.4, Ruby version 2.4.1, and PostgreSQL database
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This is a Shop API that are listing the following:
+- List of products (/products)
+- Product info (/products/:id)
