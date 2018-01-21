@@ -39,8 +39,7 @@ private
   end
 
   def sort_column
-    columns = %w[name category price]
-    columns[@params[:order_by].to_i]
+    @params[:order_by].present? ? @params[:order_by] : "price"
   end
 
   def sort_direction
