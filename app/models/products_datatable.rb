@@ -25,7 +25,8 @@ private
 
   def fetch_products
     get_products
-    filter_products
+    filter_products_by_category
+    filter_products_by_price_range
     @products
   end
 
@@ -48,20 +49,22 @@ private
 
   def get_products
     @products = Product.order("#{sort_column} #{sort_direction}")
-    @products = products.page(page).per_page(per_page)
+    @products = @products.page(page).per_page(per_page)
   end
 
-  def filter_products
-    if @params[:search_category].present? && search_query.present?
-      @products = products.where(search_query, search_term: "%#{@params[:search_term]}%")
+  def filter_products_by_category
+    if @params[:category].present?
+      @products = @products.where("category = :category", 
+                                  category: @params[:category])
     end
   end
 
-  def search_query
-    if @params[:search_category] == "category"
-      "category like :search_term" 
-    elsif @params[:search_category] == "price"
-
+  def filter_products_by_price_range
+    if @params[:price_range].present?
+      price_range = @params[:price_range].split("..")
+      @products = @products.where("price BETWEEN :price_start AND :price_end", 
+                                  price_start: price_range[0], 
+                                  price_end: price_range[1])
     end
   end
 end
