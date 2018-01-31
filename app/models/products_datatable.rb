@@ -1,23 +1,24 @@
 class ProductsDatatable
   include ActionView::Helpers::UrlHelper
+  include Enumerable
 
   def initialize(params)
     @params = params
   end
 
-  def as_json(options = {})
-    {
-      recordsTotal: Product.count,
-      recordsFiltered: products.total_entries,
-      data: data.to_a
-    }
+  def records_total
+    Product.count
+  end
+
+  def records_filtered
+    products.total_entries
+  end
+
+  def data
+    products.to_a
   end
 
 private
-
-  def data
-    products
-  end
 
   def products
     @products ||= fetch_products

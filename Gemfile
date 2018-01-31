@@ -11,6 +11,8 @@ gem 'puma', '~> 3.7'
 gem 'kaminari', '~> 0.16.3'
 gem 'will_paginate', '3.1.5'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'jbuilder'
+gem 'slim'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
