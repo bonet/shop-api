@@ -23,7 +23,7 @@ RSpec.describe ProductsController, type: :controller do
       expect(parsed_body["recordsTotal"]).to eq Product.count
       expect(parsed_body["recordsFiltered"]).to eq products.count
 
-      api_cache_key = @response.header["X-Api-Cache-Key"]
+      api_cache_key = response.header["X-Api-Cache-Key"]
       request.env["HTTP_IF_NONE_MATCH"] = response.etag
 
       get :index, params: { order_by: :price, category: "shoes"}
@@ -46,6 +46,13 @@ RSpec.describe ProductsController, type: :controller do
       
       expect(response.status).to eq 200
       expect(product).to eq product_1.as_json
+
+      api_cache_key = response.header["X-Api-Cache-Key"]
+      request.env["HTTP_IF_NONE_MATCH"] = response.etag
+
+      get :show, params: { id: product_1["id"] }
+      assert_equal api_cache_key, response.header["X-Api-Cache-Key"]
+      assert_equal 304, response.status.to_i
     end
   end
 end
