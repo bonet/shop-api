@@ -1,11 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe ProductsController, type: :controller do
+  render_views
+
   describe "GET index json" do
     it "returns correct basic product data" do
       product_1 = create(:product, category: "books", sold_out: false, under_sale: false)
       product_2 = create(:product, category: "shoes", sold_out: false, under_sale: true)
-      products = Product.where(category: "shoes").order("price DESC").map(&:attributes)
+      products  = Product.where(category: "shoes").order("price DESC").select(:id, :name, 
+                    :sold_out, :category, :under_sale, :price, :sale_price, :sale_text).as_json
 
       @request.headers['HTTP_ACCEPT'] = 'application/json'
       get :index, params: { order_by: :price, category: "shoes"}
@@ -21,11 +24,13 @@ RSpec.describe ProductsController, type: :controller do
 
   describe "GET show json" do
     it "returns correct basic product data" do
-      product_1 = create(:product, category: "books", sold_out: false, under_sale: false)
-      product_2 = create(:product, category: "shoes", sold_out: false, under_sale: true)
+      product_1 = create(:product, category: "books", sold_out: false, under_sale: false).
+                    attributes.except!("created_at", "updated_at")
+      product_2 = create(:product, category: "shoes", sold_out: false, under_sale: true).
+                    attributes.except!("created_at", "updated_at")
 
       @request.headers['HTTP_ACCEPT'] = 'application/json'
-      get :show, params: { id: product_1.id }
+      get :show, params: { id: product_1["id"] }
 
       product = JSON.parse(response.body)
       
