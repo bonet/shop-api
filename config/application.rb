@@ -30,6 +30,13 @@ module ShopApi
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    config.before_configuration do
+      REDIS_CONFIG = YAML.load_file("#{Rails.root}/config/redis.yml").with_indifferent_access[Rails.env]
+      port_format = REDIS_CONFIG['port'] == 6379 ? "" : ":#{REDIS_CONFIG['port']}"
+      redis_config_url_format = "redis://#{REDIS_CONFIG['host']}#{port_format}/#{REDIS_CONFIG['namespace']}"
+      config.cache_store = :redis_store, redis_config_url_format
+    end
+
     config.middleware.use Rack::Cors do
       allow do
         origins 'localhost:8080'

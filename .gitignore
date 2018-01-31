@@ -16,7 +16,9 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+!/tmp/
 .byebug_history
 /logfile
 .DS_Store
 database.yml
+redis.yml
